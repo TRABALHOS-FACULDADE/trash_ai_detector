@@ -19,6 +19,8 @@ dependencies:
   tflite_flutter: ^0.11.0
   flutter_modular: ^6.3.4
   camera: ^0.11.0+2
+  supabase_flutter: ^2.6.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

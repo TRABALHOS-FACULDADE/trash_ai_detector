@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'home.dart';
+import 'core/app_constants.dart';
+import 'core/module/app_module.dart';
+import 'core/module/app_widget.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  await Supabase.initialize(
+    url: AppConstants.SUPABASE_URL,
+    anonKey: AppConstants.API_KEY,
+  );
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Cat and Dog Classifer',
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  runApp(
+    ModularApp(
+      module: AppModule(),
+      child: const AppWidget(),
+    ),
+  );
 }
