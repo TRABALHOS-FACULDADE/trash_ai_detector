@@ -22,10 +22,15 @@ class ETrashDatasourceImpl implements ETrashDatasource {
   Future<ETrash> insertNewETrash(NewETrash eTrash) async {
     final client = supabase.client;
 
-    final response = await client.from('lixo_descartado').insert(
+    final response = await client
+        .from('lixo_descartado')
+        .insert(
           eTrash.toMap(),
-        );
+        )
+        .select();
 
-    return ETrash.fromMap(response as Map<String, dynamic>);
+    final insertedValue = response.single;
+
+    return ETrash.fromMap(insertedValue);
   }
 }

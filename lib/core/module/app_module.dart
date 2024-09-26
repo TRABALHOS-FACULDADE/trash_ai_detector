@@ -1,6 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../domain/repositories/e_trash_repository.dart';
+import '../../domain/usecases/get_all_e_trashes.dart';
+import '../../domain/usecases/insert_new_e_trash.dart';
 import '../../external/datasources/e_trash_datasource_impl.dart';
 import '../../home.dart';
 import '../../infra/datasources/e_trash_datasource.dart';
@@ -22,6 +25,16 @@ class AppModule extends Module {
     i.add(
       (_) => ETrashRepositoryImpl(
         i.get<ETrashDatasource>(),
+      ),
+    );
+    i.add(
+      (_) => InsertNewETrashImpl(
+        i.get<ETrashRepository>(),
+      ),
+    );
+    i.add(
+      (_) => GetAllETrashesImpl(
+        i.get<ETrashRepository>(),
       ),
     );
     super.binds(i);
