@@ -18,8 +18,6 @@ class ETrashDatasourceImpl implements ETrashDatasource {
   Future<ETrash> insertNewETrash(NewETrash eTrash) async {
     final client = Supabase.instance.client;
 
-    print(eTrash.toMap());
-
     final response = await client
         .from('lixo_descartado')
         .insert(
