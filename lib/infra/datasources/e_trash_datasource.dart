@@ -5,4 +5,6 @@ abstract class ETrashDatasource {
   Future<ETrashFetch> getAllETrashes();
 
   Future<ETrash> insertNewETrash(NewETrash eTrash);
+
+  Future<void> deleteETrash(String eTrashId);
 }

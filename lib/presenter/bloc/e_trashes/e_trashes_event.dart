@@ -12,3 +12,9 @@ class InsertNewETrashEvent extends ETrashesEvent {
 
   InsertNewETrashEvent(this.newETrash);
 }
+
+class DeleteETrashEvent extends ETrashesEvent {
+  final String id;
+
+  DeleteETrashEvent(this.id);
+}
