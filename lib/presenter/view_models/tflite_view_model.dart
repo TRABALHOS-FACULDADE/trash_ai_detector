@@ -1,13 +1,19 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 
 import '../../core/app_constants.dart';
+import '../../domain/models/enums/e_trash_type.dart';
+import '../../domain/models/enums/trash_status.dart';
+import '../../domain/models/new_e_trash.dart';
+import 'e_trashes_view_model.dart';
 
 class TFLiteViewModel {
   late File image;
@@ -78,6 +84,18 @@ class TFLiteViewModel {
         print('Result: $result');
         print('Probability: $probability');
       }
+
+      Modular.get<ETrashesViewModel>().insertNewETrash(
+        NewETrash(
+          trashType: ETrashType.values.singleWhereOrNull(
+                (type) =>
+                    type.name.toLowerCase() ==
+                    result?.replaceAll(' ', '').toLowerCase(),
+              ) ??
+              ETrashType.none,
+          status: TrashStatus.discarded,
+        ),
+      );
     } catch (e) {
       debugPrint('Error during inference: $e');
     }

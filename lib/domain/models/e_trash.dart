@@ -27,9 +27,12 @@ class ETrash {
   });
 
   factory ETrash.fromMap(Map<String, dynamic> map) => ETrash(
-        id: map['id'],
-        createdAt: map['createdAt'],
-        trashType: map['type'],
-        status: map['status'],
-      );
+      id: map['id'],
+      createdAt: DateTime.parse(map['created_at']),
+      trashType: ETrashType.values.singleWhere(
+        (type) => type.apiKey == map['trash_type'],
+      ),
+      status: TrashStatus.values.singleWhere(
+        (type) => type.apiKey == map['status'],
+      ));
 }

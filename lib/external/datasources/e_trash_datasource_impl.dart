@@ -5,13 +5,9 @@ import 'package:trash_ai/domain/models/new_e_trash.dart';
 import '../../infra/datasources/e_trash_datasource.dart';
 
 class ETrashDatasourceImpl implements ETrashDatasource {
-  final Supabase supabase;
-
-  ETrashDatasourceImpl(this.supabase);
-
   @override
   Future<ETrashFetch> getAllETrashes() async {
-    final client = supabase.client;
+    final client = Supabase.instance.client;
 
     final response = await client.from('lixo_descartado').select();
 
@@ -20,7 +16,9 @@ class ETrashDatasourceImpl implements ETrashDatasource {
 
   @override
   Future<ETrash> insertNewETrash(NewETrash eTrash) async {
-    final client = supabase.client;
+    final client = Supabase.instance.client;
+
+    print(eTrash.toMap());
 
     final response = await client
         .from('lixo_descartado')

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:uuid/uuid.dart';
+
 import 'enums/e_trash_type.dart';
 import 'enums/trash_status.dart';
 
@@ -13,7 +15,9 @@ class NewETrash {
   });
 
   Map<String, dynamic> toMap() => {
-        'type': trashType.apiKey,
+        'id': const Uuid().v4(),
+        'created_at': DateTime.now().toIso8601String(),
+        'trash_type': trashType.apiKey,
         'status': status.apiKey,
       };
 
