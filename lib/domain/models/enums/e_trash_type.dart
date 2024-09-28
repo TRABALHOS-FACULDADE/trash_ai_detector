@@ -5,7 +5,7 @@ enum ETrashType {
   ),
   pcb(
     apiKey: 'PCB',
-    name: 'Electronic Circuit',
+    name: 'Placa eletrônica',
   ),
   mouse(
     apiKey: 'MOUSE',
@@ -13,11 +13,11 @@ enum ETrashType {
   ),
   phone(
     apiKey: 'PHONE',
-    name: 'Mobile phone',
+    name: 'Aparelho celular',
   ),
   none(
     apiKey: 'NONE',
-    name: 'Unidentified',
+    name: 'Não identificado',
   );
 
   final String apiKey;

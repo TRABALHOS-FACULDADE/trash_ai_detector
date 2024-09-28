@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../domain/models/e_trash.dart';
 import '../../../domain/models/new_e_trash.dart';
+import '../../../domain/usecases/delete_e_trash.dart';
 import '../../../domain/usecases/get_all_e_trashes.dart';
 import '../../../domain/usecases/insert_new_e_trash.dart';
 
@@ -18,6 +19,10 @@ class ETrashesBloc extends Bloc<ETrashesEvent, ETrashesState> {
 
     on<InsertNewETrashEvent>(
       _insertNewETrash,
+    );
+
+    on<DeleteETrashEvent>(
+      _deleteETrash,
     );
   }
 
@@ -64,6 +69,34 @@ class ETrashesBloc extends Bloc<ETrashesEvent, ETrashesState> {
             ..._content,
             eTrash,
           ];
+
+          return ETrashesSuccessState(
+            ETrashFetch(_content),
+          );
+        },
+      ),
+    );
+  }
+
+  Future<void> _deleteETrash(
+    DeleteETrashEvent event,
+    emit,
+  ) async {
+    emit(ETrashesLoadingState());
+
+    emit(
+      (await Modular.get<DeleteETrash>().call(
+        event.id,
+      ))
+          .fold(
+        (exception) => ETrashesErrorState(
+          exception.toString(),
+        ),
+        (eTrash) {
+          _content = _content
+            ..removeWhere(
+              (trash) => trash.id == event.id,
+            );
 
           return ETrashesSuccessState(
             ETrashFetch(_content),

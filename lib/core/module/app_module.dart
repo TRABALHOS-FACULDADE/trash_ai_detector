@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../domain/repositories/e_trash_repository.dart';
+import '../../domain/usecases/delete_e_trash.dart';
 import '../../domain/usecases/get_all_e_trashes.dart';
 import '../../domain/usecases/insert_new_e_trash.dart';
 import '../../external/datasources/e_trash_datasource_impl.dart';
@@ -32,6 +33,10 @@ class AppModule extends Module {
 
     i.addSingleton<GetAllETrashes>(
       GetAllETrashesImpl.new,
+    );
+
+    i.addSingleton<DeleteETrash>(
+      DeleteETrashImpl.new,
     );
 
     i.addSingleton<ETrashesViewModel>(

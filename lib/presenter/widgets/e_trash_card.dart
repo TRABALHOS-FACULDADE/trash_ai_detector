@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:trash_ai/core/utils/date_to_dmy.dart';
 
 import '../../domain/models/e_trash.dart';
 
 class ETrashCard extends StatelessWidget {
   final ETrash eTrash;
+  final VoidCallback onDeleteTap;
 
   const ETrashCard({
     super.key,
     required this.eTrash,
+    required this.onDeleteTap,
   });
 
   @override
@@ -18,24 +21,55 @@ class ETrashCard extends StatelessWidget {
         vertical: 8,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        color: Colors.blue[100]!.withOpacity(.5),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: [
           const Icon(
             Icons.electric_bolt,
+            color: Colors.yellowAccent,
           ),
           const SizedBox(width: 8),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(eTrash.id),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.blueGrey.withOpacity(.4),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  eTrash.id,
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+              ),
               const SizedBox(height: 2),
-              Text(eTrash.trashType.name),
+              Text(
+                'Tipo: ${eTrash.trashType.name}',
+                overflow: TextOverflow.ellipsis,
+              ),
               const SizedBox(height: 2),
-              Text(eTrash.status.name),
+              Text('Status: ${eTrash.status.name}'),
               const SizedBox(height: 2),
-              Text(eTrash.createdAt.toIso8601String()),
+              Row(
+                children: [
+                  const Icon(Icons.calendar_month_outlined),
+                  const SizedBox(width: 3),
+                  Text(eTrash.createdAt.toDMY),
+                ],
+              ),
             ],
+          ),
+          const Spacer(),
+          IconButton(
+            onPressed: onDeleteTap,
+            icon: Icon(
+              Icons.delete_outline,
+              color: Colors.red[900],
+            ),
           ),
         ],
       ),

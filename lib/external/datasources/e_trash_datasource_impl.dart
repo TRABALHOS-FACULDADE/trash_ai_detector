@@ -29,4 +29,14 @@ class ETrashDatasourceImpl implements ETrashDatasource {
 
     return ETrash.fromMap(insertedValue);
   }
+
+  @override
+  Future<void> deleteETrash(String eTrashId) async {
+    final client = Supabase.instance.client;
+
+    await client.from('lixo_descartado').delete().eq(
+          'id',
+          eTrashId,
+        );
+  }
 }

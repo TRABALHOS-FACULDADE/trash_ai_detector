@@ -88,9 +88,9 @@ class TFLiteViewModel {
       Modular.get<ETrashesViewModel>().insertNewETrash(
         NewETrash(
           trashType: ETrashType.values.singleWhereOrNull(
-                (type) =>
-                    type.name.toLowerCase() ==
-                    result?.replaceAll(' ', '').toLowerCase(),
+                (type) => type.apiKey.toLowerCase().contains(
+                      result!.toLowerCase(),
+                    ),
               ) ??
               ETrashType.none,
           status: TrashStatus.discarded,
@@ -106,7 +106,7 @@ class TFLiteViewModel {
 
     if (pickedFile == null) return;
 
-    _setImage(File(pickedFile.path));
+    await _setImage(File(pickedFile.path));
   }
 
   Future<void> pickImageFromGallery() async {
@@ -114,11 +114,11 @@ class TFLiteViewModel {
 
     if (pickedFile == null) return;
 
-    _setImage(File(pickedFile.path));
+    await _setImage(File(pickedFile.path));
   }
 
-  void _setImage(File loadedImage) {
+  Future<void> _setImage(File loadedImage) async {
     image = loadedImage;
-    runInference();
+    await runInference();
   }
 }

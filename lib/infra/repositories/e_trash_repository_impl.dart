@@ -17,4 +17,9 @@ class ETrashRepositoryImpl implements ETrashRepository {
       datasource.insertNewETrash(
         eTrash,
       );
+
+  @override
+  Future<void> deleteETrash(String eTrashId) async => datasource.deleteETrash(
+        eTrashId,
+      );
 }
