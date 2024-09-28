@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:trash_ai/result.dart';
 
 import 'presenter/bloc/e_trashes/e_trashes_bloc.dart';
 import 'presenter/view_models/e_trashes_view_model.dart';
@@ -81,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: const Text(
-                          'Capture a Photo',
+                          'Tire uma foto',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -106,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: const Text(
-                          'Select a photo',
+                          'Enviar uma foto',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -127,7 +126,7 @@ class _HomePageState extends State<HomePage> {
               builder: (_, state) {
                 if (state is ETrashesErrorState) {
                   return const Center(
-                    child: Text('ERRO'),
+                    child: Text('Ocorreu um erro'),
                   );
                 }
 
@@ -139,14 +138,18 @@ class _HomePageState extends State<HomePage> {
                   }
 
                   return Expanded(
-                    child: ListView.builder(
+                    child: ListView.separated(
                       shrinkWrap: true,
                       itemCount: trashes.length,
+                      separatorBuilder: (_, __) => const Divider(),
                       itemBuilder: (_, index) {
                         final trash = trashes[index];
 
                         return ETrashCard(
                           eTrash: trash,
+                          onDeleteTap: () => trashViewModel.deleteTrash(
+                            trash.id,
+                          ),
                         );
                       },
                     ),
@@ -161,15 +164,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  void navigateToResult() => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResultPage(
-            image: tflite.image,
-            result: tflite.result!,
-            probability: tflite.probability,
-          ),
-        ),
-      );
 }

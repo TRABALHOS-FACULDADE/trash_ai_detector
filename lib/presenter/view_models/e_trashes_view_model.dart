@@ -6,11 +6,15 @@ import '../bloc/e_trashes/e_trashes_bloc.dart';
 class ETrashesViewModel {
   final bloc = Modular.get<ETrashesBloc>();
 
-  void fetchAllETrashes() {
-    bloc.add(FetchAllETrashesEvent());
-  }
+  void fetchAllETrashes() => bloc.add(
+        FetchAllETrashesEvent(),
+      );
 
-  void insertNewETrash(NewETrash newETrash) {
-    bloc.add(InsertNewETrashEvent(newETrash));
-  }
+  void insertNewETrash(NewETrash newETrash) => bloc.add(
+        InsertNewETrashEvent(newETrash),
+      );
+
+  void deleteTrash(String trashId) => bloc.add(
+        DeleteETrashEvent(trashId),
+      );
 }
