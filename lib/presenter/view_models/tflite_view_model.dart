@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
+import 'package:uuid/uuid.dart';
 
 import '../../core/app_constants.dart';
 import '../../domain/models/enums/e_trash_type.dart';
@@ -82,19 +82,18 @@ class TFLiteViewModel {
 
       if (kDebugMode) {
         print('Result: $result');
-        print('Probability: $probability');
+        print('Probability: ${probability * 100}');
       }
 
+      final newETrash = NewETrash(
+        trashType: ETrashType.fromString(result!),
+        status: TrashStatus.discarded,
+      )
+        ..trashPath = '${const Uuid().v4()}.png'
+        ..trashFile = image;
+
       Modular.get<ETrashesViewModel>().insertNewETrash(
-        NewETrash(
-          trashType: ETrashType.values.singleWhereOrNull(
-                (type) => type.apiKey.toLowerCase().contains(
-                      result!.toLowerCase(),
-                    ),
-              ) ??
-              ETrashType.none,
-          status: TrashStatus.discarded,
-        ),
+        newETrash,
       );
     } catch (e) {
       debugPrint('Error during inference: $e');

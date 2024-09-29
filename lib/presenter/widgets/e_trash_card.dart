@@ -26,10 +26,12 @@ class ETrashCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.electric_bolt,
-            color: Colors.yellowAccent,
-          ),
+          if (eTrash.fileUrl != null)
+            Image.network(
+              eTrash.fileUrl!,
+              height: 60,
+              width: 60,
+            ),
           const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,13 +54,19 @@ class ETrashCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 2),
-              Text('Status: ${eTrash.status.name}'),
+              Text(
+                'Status: ${eTrash.status.name}',
+                style: TextStyle(
+                  color: eTrash.status.textColor,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               const SizedBox(height: 2),
               Row(
                 children: [
                   const Icon(Icons.calendar_month_outlined),
                   const SizedBox(width: 3),
-                  Text(eTrash.createdAt.toDMY),
+                  Text(eTrash.createdAt.toDMY_HHMM),
                 ],
               ),
             ],

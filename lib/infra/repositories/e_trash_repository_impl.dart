@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:trash_ai/domain/models/e_trash.dart';
 import 'package:trash_ai/domain/models/new_e_trash.dart';
 
@@ -21,5 +23,15 @@ class ETrashRepositoryImpl implements ETrashRepository {
   @override
   Future<void> deleteETrash(String eTrashId) async => datasource.deleteETrash(
         eTrashId,
+      );
+
+  @override
+  Future<String?> uploadTrashFile({
+    required String path,
+    required File trashFile,
+  }) async =>
+      datasource.uploadTrashFile(
+        path: path,
+        trashFile: trashFile,
       );
 }

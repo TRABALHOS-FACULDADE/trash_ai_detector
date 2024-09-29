@@ -15,12 +15,14 @@ class ETrashFetch {
 
 class ETrash {
   final String id;
+  final String? fileUrl;
   final DateTime createdAt;
   final ETrashType trashType;
   final TrashStatus status;
 
   ETrash({
     required this.id,
+    this.fileUrl,
     required this.createdAt,
     required this.trashType,
     required this.status,
@@ -28,10 +30,9 @@ class ETrash {
 
   factory ETrash.fromMap(Map<String, dynamic> map) => ETrash(
       id: map['id'],
+      fileUrl: map['fileUrl'],
       createdAt: DateTime.parse(map['created_at']),
-      trashType: ETrashType.values.singleWhere(
-        (type) => type.apiKey == map['trash_type'],
-      ),
+      trashType: ETrashType.fromString(map['trash_type']),
       status: TrashStatus.values.singleWhere(
         (type) => type.apiKey == map['status'],
       ));

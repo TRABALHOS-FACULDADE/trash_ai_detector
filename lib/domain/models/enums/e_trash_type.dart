@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 enum ETrashType {
   nintendoDS(
     apiKey: 'NINTENDO_DS',
@@ -22,6 +24,12 @@ enum ETrashType {
 
   final String apiKey;
   final String name;
+
+  factory ETrashType.fromString(String key) =>
+      ETrashType.values.singleWhereOrNull(
+        (type) => type.apiKey == key.replaceAll(' ', '').trim(),
+      ) ??
+      none;
 
   const ETrashType({
     required this.apiKey,
