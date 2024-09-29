@@ -68,4 +68,19 @@ class ETrashDatasourceImpl implements ETrashDatasource {
       return null;
     }
   }
+
+  @override
+  Future<void> deleteTrashFile(
+    String path,
+  ) async {
+    final storage = Supabase.instance.client.storage;
+
+    try {
+      await storage.from(_TRASHES_BUCKET).remove([path]);
+    } catch (e) {
+      if (kDebugMode) {
+        print('ERROR_MESSAGE ${e.toString()}');
+      }
+    }
+  }
 }
