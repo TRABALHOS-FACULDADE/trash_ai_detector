@@ -4,7 +4,7 @@ enum TrashStatus {
   discarded(
     apiKey: 'DISCARDED',
     name: 'Descartado',
-    textColor: Colors.white,
+    textColor: Color(0xFF5D0000),
   ),
   beingCollected(
     apiKey: 'BEING_COLLECTED',
@@ -26,6 +26,14 @@ enum TrashStatus {
     name: 'Reciclado',
     textColor: Colors.green,
   );
+
+  static Map<TrashStatus, int> get progress => {
+        discarded: 1,
+        beingCollected: 2,
+        transporting: 3,
+        recycling: 4,
+        done: 5,
+      };
 
   final String apiKey;
   final String name;

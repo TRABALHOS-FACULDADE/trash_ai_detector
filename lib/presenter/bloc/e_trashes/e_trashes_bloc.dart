@@ -40,7 +40,12 @@ class ETrashesBloc extends Bloc<ETrashesEvent, ETrashesState> {
           exception.toString(),
         ),
         (eTrashes) {
-          _content = eTrashes.trashes;
+          _content = eTrashes.trashes
+            ..sort(
+              (a, b) => a.createdAt.compareTo(
+                b.createdAt,
+              ),
+            );
 
           return ETrashesSuccessState(
             eTrashes,
@@ -68,7 +73,11 @@ class ETrashesBloc extends Bloc<ETrashesEvent, ETrashesState> {
           _content = [
             ..._content,
             eTrash,
-          ];
+          ]..sort(
+              (a, b) => a.createdAt.compareTo(
+                b.createdAt,
+              ),
+            );
 
           return ETrashesSuccessState(
             ETrashFetch(_content),
@@ -97,6 +106,11 @@ class ETrashesBloc extends Bloc<ETrashesEvent, ETrashesState> {
           _content = _content
             ..removeWhere(
               (trash) => trash.id == event.id,
+            )
+            ..sort(
+              (a, b) => a.createdAt.compareTo(
+                b.createdAt,
+              ),
             );
 
           return ETrashesSuccessState(
