@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 enum TrashStatus {
@@ -34,6 +35,12 @@ enum TrashStatus {
         recycling: 4,
         done: 5,
       };
+
+  factory TrashStatus.fromString(String key) =>
+      TrashStatus.values.singleWhereOrNull(
+        (type) => type.apiKey == key.replaceAll(' ', '').trim(),
+      ) ??
+      discarded;
 
   final String apiKey;
   final String name;

@@ -154,6 +154,7 @@ class _HomePageState extends State<HomePage> {
                         child: ListView.separated(
                           shrinkWrap: true,
                           itemCount: trashes.length,
+                          padding: const EdgeInsets.only(bottom: 20),
                           separatorBuilder: (_, __) => const Divider(),
                           itemBuilder: (_, index) {
                             final trash = trashes[index];

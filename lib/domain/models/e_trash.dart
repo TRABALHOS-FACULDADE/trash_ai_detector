@@ -67,9 +67,7 @@ class ETrash {
         filePath: map['filePath'],
         createdAt: DateTime.parse(map['created_at']),
         trashType: ETrashType.fromString(map['trash_type']),
-        status: TrashStatus.values.singleWhere(
-          (type) => type.apiKey == map['status'],
-        ),
+        status: TrashStatus.fromString(map['status']),
         collectedAt: map['collected_at'] == null
             ? null
             : DateTime.parse(map['collected_at']),
