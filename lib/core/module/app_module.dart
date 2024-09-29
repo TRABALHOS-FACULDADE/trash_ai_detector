@@ -4,6 +4,7 @@ import '../../domain/repositories/e_trash_repository.dart';
 import '../../domain/usecases/delete_e_trash.dart';
 import '../../domain/usecases/get_all_e_trashes.dart';
 import '../../domain/usecases/insert_new_e_trash.dart';
+import '../../domain/usecases/upload_trash_file.dart';
 import '../../external/datasources/e_trash_datasource_impl.dart';
 import '../../home.dart';
 import '../../infra/datasources/e_trash_datasource.dart';
@@ -25,6 +26,10 @@ class AppModule extends Module {
 
     i.addSingleton<ETrashRepository>(
       ETrashRepositoryImpl.new,
+    );
+
+    i.addSingleton<UploadTrashFile>(
+      UploadTrashFileImpl.new,
     );
 
     i.addSingleton<InsertNewETrash>(
