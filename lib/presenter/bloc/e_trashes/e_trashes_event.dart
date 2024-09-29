@@ -15,6 +15,10 @@ class InsertNewETrashEvent extends ETrashesEvent {
 
 class DeleteETrashEvent extends ETrashesEvent {
   final String id;
+  final String path;
 
-  DeleteETrashEvent(this.id);
+  DeleteETrashEvent({
+    required this.id,
+    required this.path,
+  });
 }

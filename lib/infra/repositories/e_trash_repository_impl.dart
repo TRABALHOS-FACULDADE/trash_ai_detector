@@ -34,4 +34,9 @@ class ETrashRepositoryImpl implements ETrashRepository {
         path: path,
         trashFile: trashFile,
       );
+
+  @override
+  Future<void> deleteTrashFile(String path) async => datasource.deleteTrashFile(
+        path,
+      );
 }

@@ -16,6 +16,7 @@ class ETrashFetch {
 class ETrash {
   final String id;
   final String? fileUrl;
+  final String? filePath;
   final DateTime createdAt;
   final ETrashType trashType;
   final TrashStatus status;
@@ -23,6 +24,7 @@ class ETrash {
   ETrash({
     required this.id,
     this.fileUrl,
+    this.filePath,
     required this.createdAt,
     required this.trashType,
     required this.status,
@@ -31,6 +33,7 @@ class ETrash {
   factory ETrash.fromMap(Map<String, dynamic> map) => ETrash(
       id: map['id'],
       fileUrl: map['fileUrl'],
+      filePath: map['filePath'],
       createdAt: DateTime.parse(map['created_at']),
       trashType: ETrashType.fromString(map['trash_type']),
       status: TrashStatus.values.singleWhere(

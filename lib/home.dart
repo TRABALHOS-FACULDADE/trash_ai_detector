@@ -148,7 +148,8 @@ class _HomePageState extends State<HomePage> {
                         return ETrashCard(
                           eTrash: trash,
                           onDeleteTap: () => trashViewModel.deleteTrash(
-                            trash.id,
+                            trashId: trash.id,
+                            trashFilePath: trash.filePath ?? '',
                           ),
                         );
                       },

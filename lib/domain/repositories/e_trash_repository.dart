@@ -14,4 +14,6 @@ abstract class ETrashRepository {
     required String path,
     required File trashFile,
   });
+
+  Future<void> deleteTrashFile(String path);
 }

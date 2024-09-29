@@ -86,7 +86,8 @@ class ETrashesBloc extends Bloc<ETrashesEvent, ETrashesState> {
 
     emit(
       (await Modular.get<DeleteETrash>().call(
-        event.id,
+        eTrashId: event.id,
+        path: event.path,
       ))
           .fold(
         (exception) => ETrashesErrorState(

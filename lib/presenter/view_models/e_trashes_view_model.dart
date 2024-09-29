@@ -14,7 +14,14 @@ class ETrashesViewModel {
         InsertNewETrashEvent(newETrash),
       );
 
-  void deleteTrash(String trashId) => bloc.add(
-        DeleteETrashEvent(trashId),
+  void deleteTrash({
+    required String trashId,
+    required String trashFilePath,
+  }) =>
+      bloc.add(
+        DeleteETrashEvent(
+          id: trashId,
+          path: trashFilePath,
+        ),
       );
 }
